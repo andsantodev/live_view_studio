@@ -26,11 +26,13 @@ defmodule LiveViewStudioWeb.LightLive do
 
   # Evento On
   def handle_event("on", _, socket) do
+    # socket, variavel dinamica, valor/estado
     socket = assign(socket, :brightness, 100)
     {:noreply, socket}
   end
 
   # Evento Off
+  # socket, variavel dinamica, valor/estado
   def handle_event("off", _, socket) do
     socket = assign(socket, :brightness, 0)
     {:noreply, socket}
@@ -42,8 +44,8 @@ defmodule LiveViewStudioWeb.LightLive do
     # brightness = socket.assigns.brightness + 10
     # socket = assign(socket, :brightness, brightness)
 
-    # simplificado
-    socket = update(socket, :brightness, &min(&1 + 10, 100))
+    # simplificado com funcao anonima (fn)
+    socket = update(socket, :brightness, fn valor -> min(valor + 10, 100) end)
 
     {:noreply, socket}
   end
@@ -53,8 +55,8 @@ defmodule LiveViewStudioWeb.LightLive do
     # brightness = socket.assigns.brightness - 10
     # socket = assign(socket, :brightness, brightness)
 
-    # simplificado
-    socket = update(socket, :brightness, &max(&1 - 10, 0))
+    # simplificado com funcao anonima (fn)
+    socket = update(socket, :brightness, fn valor -> max(valor - 10, 0) end)
 
     {:noreply, socket}
   end
